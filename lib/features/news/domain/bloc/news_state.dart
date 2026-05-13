@@ -17,18 +17,28 @@ class NewsLoading extends NewsState {
 }
 
 class NewsSuccess extends NewsState {
-  const NewsSuccess(this.news);
+  const NewsSuccess(this.sections);
 
+  final List<NewsSection> sections;
+
+  @override
+  List<Object?> get props => [sections];
+}
+
+class NewsSection extends Equatable {
+  const NewsSection({required this.title, required this.news});
+
+  final String title;
   final List<NewsArticleModel> news;
 
   @override
-  List<Object?> get props => [news];
+  List<Object?> get props => [title, news];
 }
 
 class NewsFailure extends NewsState {
   const NewsFailure(this.message);
 
- final String message;
+  final String message;
 
   @override
   List<Object?> get props => [message];

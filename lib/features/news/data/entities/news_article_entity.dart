@@ -2,13 +2,13 @@ import 'package:lesson_1/features/news/domain/models/news_article_model.dart';
 
 class NewsArticleEntity {
   NewsArticleEntity({
-   this.author,
-   this.title,
-   this.description,
-   this.url,
-   this.urlToImage,
-   this.publishedAt,
-   this.content,
+    this.author,
+    this.title,
+    this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
+    this.content,
   });
   final String? author;
   final String? title;
@@ -39,14 +39,14 @@ class NewsArticleEntity {
   }
 
   NewsArticleModel fromEntityToModel() {
-  return NewsArticleModel(
-    author: author ?? 'Unknown author',
-    title: title ?? 'No title',
-    description: description ?? 'No description',
-    url: url ?? '',
-    urlToImage: urlToImage ?? '',
-    publishedAt: publishedAt ?? '',
-    content: content ?? '',
-  );
-}
+    return NewsArticleModel(
+      author: author ?? 'Unknown author',
+      title: title ?? 'No title',
+      description: description ?? 'No description',
+      url: url ?? '',
+      urlToImage: urlToImage ?? '',
+      publishedAt: publishedAt ?? '',
+      content: content ?? '',
+    );
+  }
 }

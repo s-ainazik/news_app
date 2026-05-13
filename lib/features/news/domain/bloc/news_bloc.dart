@@ -1,14 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:lesson_1/features/news/domain/bloc/news_event.dart';
 import 'package:lesson_1/features/news/domain/bloc/news_state.dart';
 import 'package:lesson_1/features/news/domain/repo/news_repository.dart';
 
+@injectable
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc({required this.newsRepository}) : super(const NewsInitial()) {
     on<GetNewsEvent>(_getNewsEvent);
   }
 
   final NewsRepository newsRepository;
+  static const List<({String title, String query})> _categories = [
+    (title: 'Trending', query: 'world news'),
+    (title: 'Technology', query: 'technology'),
+    (title: 'Business', query: 'business'),
+    (title: 'Sport', query: 'sport'),
+  ];
 
   Future<void> _getNewsEvent(
     GetNewsEvent event,
@@ -17,8 +25,22 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     emit(const NewsLoading());
 
     try {
-      final news = await newsRepository.getNews();
-      emit(NewsSuccess(news));
+      final query = event.query?.trim();
+
+      if (query != null && query.isNotEmpty) {
+        final news = await newsRepository.getNews(query: query);
+        emit(NewsSuccess([NewsSection(title: 'Search results', news: news)]));
+        return;
+      }
+
+      final sections = await Future.wait(
+        _categories.map((category) async {
+          final news = await newsRepository.getNews(query: category.query);
+          return NewsSection(title: category.title, news: news);
+        }),
+      );
+
+      emit(NewsSuccess(sections));
     } catch (error) {
       emit(NewsFailure(error.toString()));
     }

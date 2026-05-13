@@ -3,130 +3,91 @@ import 'package:lesson_1/core/utils/date_formatter.dart';
 import 'package:lesson_1/features/news/domain/models/news_article_model.dart';
 
 class NewsTile extends StatelessWidget {
-  const NewsTile({
-    super.key,
-    required this.article,
-    required this.onTap,
-  });
+  const NewsTile({super.key, required this.article, required this.onTap});
 
   final NewsArticleModel article;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
+    return SizedBox(
+      width: 214,
       child: InkWell(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                color: Colors.black.withOpacity(0.05),
-                offset: const Offset(0, 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 14,
+                    color: Colors.black.withValues(alpha: 0.16),
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
-            ],
-          ),
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              /// IMAGE
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    article.urlToImage,
-                    fit: BoxFit.cover,
-
-                    errorBuilder: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
-                      return Container(
-                        color: Colors.grey.shade300,
-                        child: const Icon(Icons.image),
-                      );
-                    },
+              clipBehavior: Clip.antiAlias,
+              child: Image.network(
+                article.urlToImage,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.contain,
+                errorBuilder: (_, _, _) => ColoredBox(
+                  color: const Color(0xFFE8ECEF),
+                  child: Icon(
+                    Icons.image_outlined,
+                    color: Colors.grey.shade500,
+                    size: 36,
                   ),
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.all(14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    /// TITLE
-                    Text(
-                      article.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    /// DESCRIPTION
-                    Text(
-                      article.description,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade700,
-                        height: 1.5,
-                      ),
-                    ),
-
-                    const SizedBox(height: 14),
-
-                    Row(
-                      children: [
-
-                        /// AUTHOR
-                        Expanded(
-                          child: Text(
-                            article.author,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-
-                        /// DATE
-                        Text(
-                          formatDate(article.publishedAt),
-                          style: TextStyle(
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              article.title,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w900,
+                height: 1.2,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              article.description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.grey.shade700,
+                fontSize: 12,
+                height: 1.25,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              article.author,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 3),
+            Text(
+              formatDate(article.publishedAt),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.grey.shade500,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );

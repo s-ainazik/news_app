@@ -1,27 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:lesson_1/features/news/domain/repo/news_repository.dart';
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'package:lesson_1/core/di/app_dependencies.config.dart';
 
-class AppDependencies extends InheritedWidget {
-  const AppDependencies({
-    super.key,
-    required this.newsRepository,
-    required super.child,
-  });
+final getIt = GetIt.instance;
 
-  final NewsRepository newsRepository;
-  
-
-  static AppDependencies of(BuildContext context) {
-    final dependencies = context
-        .dependOnInheritedWidgetOfExactType<AppDependencies>();
-
-    assert(dependencies != null, 'AppDependencies not found in context');
-    return dependencies!;
-  }
-
-  @override
-  bool updateShouldNotify(AppDependencies oldWidget) {
-    return newsRepository != oldWidget.newsRepository;
-
-  }
-}
+@InjectableInit()
+Future<void> configureDependencies() async => getIt.init();
