@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -8,6 +9,9 @@ import 'package:talker_flutter/talker_flutter.dart';
 abstract class RegisterModule {
   @lazySingleton
   Talker get talker => TalkerFlutter.init();
+
+  @lazySingleton
+  FlutterSecureStorage get secureStorage => const FlutterSecureStorage();
 
   @lazySingleton
   Dio dio(Talker talker) {
