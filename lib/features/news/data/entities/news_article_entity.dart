@@ -1,6 +1,7 @@
+import 'package:lesson_1/core/utils/transformable.dart';
 import 'package:lesson_1/features/news/domain/models/news_article_model.dart';
 
-class NewsArticleEntity {
+class NewsArticleEntity with Transformable<NewsArticleModel> {
   NewsArticleEntity({
     this.author,
     this.title,
@@ -38,7 +39,8 @@ class NewsArticleEntity {
         .toList();
   }
 
-  NewsArticleModel fromEntityToModel() {
+  @override
+  NewsArticleModel transform() {
     return NewsArticleModel(
       author: author ?? 'Unknown author',
       title: title ?? 'No title',

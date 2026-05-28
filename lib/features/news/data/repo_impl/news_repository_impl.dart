@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:lesson_1/core/utils/transformable.dart';
 import 'package:lesson_1/features/news/data/data_source/api/news_remote_data_source.dart';
 import 'package:lesson_1/features/news/domain/models/news_article_model.dart';
 import 'package:lesson_1/features/news/domain/repo/news_repository.dart';
@@ -12,6 +13,6 @@ class NewsRepositoryImpl implements NewsRepository {
   @override
   Future<List<NewsArticleModel>> getNews({required String query}) async {
     final result = await newsRemoteDataSource.getNews(query: query);
-    return result.map((entity) => entity.fromEntityToModel()).toList();
+    return result.transform();
   }
 }

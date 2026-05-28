@@ -22,6 +22,8 @@ import 'package:lesson_1/features/news/data/repo_impl/news_repository_impl.dart'
 import 'package:lesson_1/features/news/domain/bloc/news_bloc.dart' as _i267;
 import 'package:lesson_1/features/news/domain/repo/news_repository.dart'
     as _i329;
+import 'package:lesson_1/features/news/domain/usecases/get_news_usecase.dart'
+    as _i934;
 import 'package:talker_flutter/talker_flutter.dart' as _i207;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -42,8 +44,11 @@ extension GetItInjectableX on _i174.GetIt {
         newsRemoteDataSource: gh<_i894.NewsRemoteDataSource>(),
       ),
     );
+    gh.factory<_i934.GetNewsUseCase>(
+      () => _i934.GetNewsUseCase(newsRepository: gh<_i329.NewsRepository>()),
+    );
     gh.factory<_i267.NewsBloc>(
-      () => _i267.NewsBloc(newsRepository: gh<_i329.NewsRepository>()),
+      () => _i267.NewsBloc(getNewsUseCase: gh<_i934.GetNewsUseCase>()),
     );
     return this;
   }
