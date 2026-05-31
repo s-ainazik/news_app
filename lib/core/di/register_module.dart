@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -12,6 +14,13 @@ abstract class RegisterModule {
 
   @lazySingleton
   FlutterSecureStorage get secureStorage => const FlutterSecureStorage();
+
+  @lazySingleton
+  FirebaseMessaging get firebaseMessaging => FirebaseMessaging.instance;
+
+  @lazySingleton
+  FlutterLocalNotificationsPlugin get localNotifications =>
+      FlutterLocalNotificationsPlugin();
 
   @lazySingleton
   Dio dio(Talker talker) {

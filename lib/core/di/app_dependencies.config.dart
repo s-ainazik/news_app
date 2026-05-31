@@ -10,10 +10,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+    as _i163;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:lesson_1/core/di/register_module.dart' as _i994;
+import 'package:lesson_1/core/services/push_notifications/push_notification_service.dart'
+    as _i515;
 import 'package:lesson_1/features/auth/data/auth_secure_storage.dart' as _i625;
 import 'package:lesson_1/features/auth/domain/auth_cubit.dart' as _i485;
 import 'package:lesson_1/features/news/data/data_source/api/news_remote_data_source.dart'
@@ -40,6 +45,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i207.Talker>(() => registerModule.talker);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => registerModule.secureStorage,
+    );
+    gh.lazySingleton<_i892.FirebaseMessaging>(
+      () => registerModule.firebaseMessaging,
+    );
+    gh.lazySingleton<_i163.FlutterLocalNotificationsPlugin>(
+      () => registerModule.localNotifications,
+    );
+    gh.lazySingleton<_i515.PushNotificationService>(
+      () => _i515.PushNotificationService(
+        firebaseMessaging: gh<_i892.FirebaseMessaging>(),
+        localNotifications: gh<_i163.FlutterLocalNotificationsPlugin>(),
+        talker: gh<_i207.Talker>(),
+      ),
     );
     gh.lazySingleton<_i625.AuthSecureStorage>(
       () => _i625.AuthSecureStorage(gh<_i558.FlutterSecureStorage>()),
