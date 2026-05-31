@@ -44,10 +44,16 @@ class AppBottomNavigation extends StatelessWidget {
               onTap: () => onTap(1),
             ),
             _BottomNavigationItem(
-              icon: Icons.menu,
-              label: 'MENU',
+              icon: Icons.article_outlined,
+              label: 'EVERYTHING',
               isSelected: currentIndex == 2,
               onTap: () => onTap(2),
+            ),
+            _BottomNavigationItem(
+              icon: Icons.menu,
+              label: 'MENU',
+              isSelected: currentIndex == 3,
+              onTap: () => onTap(3),
             ),
           ],
         ),

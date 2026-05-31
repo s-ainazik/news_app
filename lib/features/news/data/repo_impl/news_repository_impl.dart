@@ -11,8 +11,16 @@ class NewsRepositoryImpl implements NewsRepository {
   final NewsRemoteDataSource newsRemoteDataSource;
 
   @override
-  Future<List<NewsArticleModel>> getNews({required String query}) async {
-    final result = await newsRemoteDataSource.getNews(query: query);
+  Future<List<NewsArticleModel>> getNews({
+    required String query,
+    int? page,
+    int? pageSize,
+  }) async {
+    final result = await newsRemoteDataSource.getNews(
+      query: query,
+      page: page,
+      pageSize: pageSize,
+    );
     return result.transform();
   }
 }

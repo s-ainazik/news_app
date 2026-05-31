@@ -8,10 +8,12 @@ sealed class NewsEvent extends Equatable {
 }
 
 class GetNewsEvent extends NewsEvent {
-  const GetNewsEvent({this.query});
+  const GetNewsEvent({this.query, this.page, this.pageSize});
 
   final String? query;
+  final int? page;
+  final int? pageSize;
 
   @override
-  List<Object?> get props => [query];
+  List<Object?> get props => [query, page, pageSize];
 }

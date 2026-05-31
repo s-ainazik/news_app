@@ -8,7 +8,11 @@ class GetNewsUseCase {
 
   final NewsRepository newsRepository;
 
-  Future<List<NewsArticleModel>> call({required String query}) {
-    return newsRepository.getNews(query: query);
+  Future<List<NewsArticleModel>> call({
+    required String query,
+    int? page,
+    int? pageSize,
+  }) {
+    return newsRepository.getNews(query: query, page: page, pageSize: pageSize);
   }
 }

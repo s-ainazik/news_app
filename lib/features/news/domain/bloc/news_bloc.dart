@@ -28,7 +28,11 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       final query = event.query?.trim();
 
       if (query != null && query.isNotEmpty) {
-        final news = await getNewsUseCase(query: query);
+        final news = await getNewsUseCase(
+          query: query,
+          page: event.page,
+          pageSize: event.pageSize,
+        );
         emit(NewsSuccess([NewsSection(title: 'Search results', news: news)]));
         return;
       }

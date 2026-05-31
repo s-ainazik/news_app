@@ -15,14 +15,28 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   final Dio dio;
 
   @override
-  Future<List<NewsArticleEntity>> getNews({required String query}) async {
+  Future<List<NewsArticleEntity>> getNews({
+    required String query,
+    int? page,
+    int? pageSize,
+  }) async {
+    final queryParameters = {
+      'q': query,
+      'sortBy': 'publishedAt',
+      'apiKey': _ApiPath.apiKey,
+    };
+
+    if (page != null) {
+      queryParameters['page'] = page.toString();
+    }
+
+    if (pageSize != null) {
+      queryParameters['pageSize'] = pageSize.toString();
+    }
+
     final response = await dio.get(
       _ApiPath.news,
-      queryParameters: {
-        'q': query,
-        'sortBy': 'publishedAt',
-        'apiKey': _ApiPath.apiKey,
-      },
+      queryParameters: queryParameters,
     );
     return NewsArticleEntity.fromJsonList(response.data["articles"]);
   }

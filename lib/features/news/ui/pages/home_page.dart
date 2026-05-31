@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:lesson_1/features/news/ui/pages/everything_page.dart';
 import 'package:lesson_1/features/news/ui/pages/favourites_page.dart';
 import 'package:lesson_1/features/news/ui/pages/menu_page.dart';
 import 'package:lesson_1/features/news/ui/pages/news_page.dart';
@@ -16,7 +17,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [NewsPage(), FavouritesPage(), MenuPage()];
+  final List<Widget> _pages = const [
+    NewsPage(),
+    FavouritesPage(),
+    EverythingPage(),
+    MenuPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
